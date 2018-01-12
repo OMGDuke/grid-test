@@ -1,18 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.items = [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9]
+    ];
+    this.renderRow = this.renderRow.bind(this);
+  }
+
+  renderRow(row, indexX) {
+    return (
+      <div>
+        {row.map((square, indexY) => this.renderSquare(square, indexX, indexY))}
+      </div>
+    )
+  }
+
+  renderSquare(square, indexX, indexY) {
+    return (<span key={`${indexX}-${indexY}`} className="square">{indexX}, {indexY}</span>)
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        {this.items.map(this.renderRow)}
       </div>
     );
   }
